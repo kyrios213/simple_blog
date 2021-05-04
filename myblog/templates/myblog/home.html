@@ -10,8 +10,11 @@
         {% for post in object_list %}
             <div class="col-8 offset-2 my-3 text-center">
                 <h2><a href="{% url 'myblog:detail' post.id %}">{{ post.title|capfirst }}</a></h2>
-                posted by: {{ post.author }}
-                <p>{{ post.body }}</p>
+                <p class="text-muted">posted by: {{ post.author }} on {{ post.post_date }}</p>
+                <p class='lead'>{{ post.body }}</p>
+                <p><a href={% url 'myblog:edit' post.id %} class="btn btn-outline-primary btn-block btn-sm">Edit</a></p>
+                <p><a href={% url 'myblog:delete' post.id %} class="btn btn-outline-primary btn-block btn-sm">Delete</a></p>
+                <hr>
             </div>
         {% endfor %}
     </div>

@@ -6,9 +6,11 @@
 
 <div class="container">
     <h1>{{ post.title }}</h1>
-    by: {{ post.author }}
-    <hr>
-    <p>{{ post.body }}</p>
+    <p class="text-muted">posted by: {{ post.author }} on {{ post.post_date }}</p>
+    <p class="lead">{{ post.body }}</p>
+    <br />
+    <p><a href={% url 'myblog:edit' post.id %} class="btn btn-primary" style="width: 10rem;">Edit</a>
+    <a href={% url 'myblog:delete' post.id %} class="btn btn-primary" style="width: 10rem;">Delete</a></p>
 </div>
 
 {% endblock %}
