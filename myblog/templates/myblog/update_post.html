@@ -4,19 +4,37 @@
 
 {% block content %}
 
-<section class="container my-4">
-    <h1>Edit - {{ post.title|capfirst }}</h1>
-    <div class="row">
-        <div class="col-10">
-            <form action="" method="post">
-                {% csrf_token %}
-                <div class="form-group">
-                    {{ form.as_p}}
+{% if user.is_authenticated %}
+    {% if post.author == user %}
+        <section class="container my-4">
+            <h1>Edit - {{ post.title|capfirst }}</h1>
+            <div class="row">
+                <div class="col-10">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ form.as_p}}
+                        </div>
+                        <button class="btn btn-primary" type="submit" style="width: 10rem;">Edit</button>
+                    </form>
                 </div>
-                <button class="btn btn-primary" type="submit" style="width: 10rem;">Edit</button>
-            </form>
+            </div>
+        </section>
+    {% else %}
+        <div class='container mt-4'>
+            <div class="alert alert-warning text-center" role="alert">
+                <h1>Invalid User</h1>
+            </div>
+        </div>
+    {% endif %}
+
+{% else %}
+    <div class="container mt-4">
+        <div class="alert alert-warning text-center" role="alert">
+            <h1>Login Required</h1>
+            <a href={% url 'login' %} class="btn btn-primary">Login</a>
         </div>
     </div>
-</section>
+{% endif %}
 
 {% endblock %}
