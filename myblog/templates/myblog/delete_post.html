@@ -5,7 +5,7 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-    {% if post.author == user %}
+    {% if post.author.id == user.id %}
         <section class="container my-4 text-center">
             <h1>Delete - {{ post.title|capfirst }}</h1>
             <div class="row">

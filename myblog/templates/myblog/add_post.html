@@ -19,6 +19,12 @@
             </div>
         </div>
     </section>
+
+    <script>
+        var name = '{{ user.id }}';
+        document.getElementById("author").value = name;
+
+    </script>
 {% else %}
     <div class="container mt-4">
         <div class="alert alert-warning text-center" role="alert">
