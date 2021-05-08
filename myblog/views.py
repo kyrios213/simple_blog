@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.urls import reverse_lazy
 
@@ -24,7 +24,18 @@ class PostDetailView(generic.DetailView):
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
         context = super(PostDetailView, self).get_context_data(*args, **kwargs)
+
+        post = get_object_or_404(Post, id=self.kwargs['pk'])
+        total_likes = post.total_likes()
+
+        liked = False
+        if post.likes.filter(id=self.request.user.id).exists():
+            liked = True
+
         context['cat_menu'] = cat_menu
+        context['total_likes'] = total_likes
+        context['liked'] = liked
+
         return context
 
 
@@ -67,3 +78,15 @@ def CategoryListView(request):
     return render(request, 'myblog/category_list.html', {
         'cat_menu_list': cat_menu_list,
     })
+
+def LikeView(request, pk):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    liked = False
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        liked = False
+    else:      
+        post.likes.add(request.user)
+        liked = True
+
+    return redirect('myblog:detail', pk=post.id)

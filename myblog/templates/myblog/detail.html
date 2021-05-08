@@ -10,6 +10,18 @@
     <p class="text-muted">posted by: {{ post.author }} on {{ post.post_date }}</p>
     <p class="lead">{{ post.body|safe }}</p>
     <br />
+    {% if user.is_authenticated %}
+        <div class="row d-flex justify-content-center mb-4">
+            <form action={% url 'myblog:like_post' post.pk %} method="POST">
+                {% csrf_token %}
+                {% if liked %}
+                    <button type="submit" name='post_id' value='{{ post.id }}' class="btn btn-primary btn-sm">{{ total_likes}} <i class="fas fa-thumbs-down"></i> Unlike</button>  
+                {% else %}
+                    <button type="submit" name='post_id' value='{{ post.id }}' class="btn btn-outline-primary btn-sm">{{ total_likes}} <i class="fas fa-thumbs-up"></i> Like
+                    </button>
+                {% endif %}
+        </div>
+    {% endif %}
     {% if post.author == user %}
         <p><a href={% url 'myblog:edit' post.id %} class="btn btn-primary" style="width: 10rem;">Edit</a>
         <a href={% url 'myblog:delete' post.id %} class="btn btn-primary" style="width: 10rem;">Delete</a></p>
