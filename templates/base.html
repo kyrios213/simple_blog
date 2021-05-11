@@ -48,6 +48,9 @@
               <a class="nav-link" href="{% url 'myblog:category' %}">Categories</a>
             </li>
             <li class="nav-item active">
+              <a class="nav-link" href="{% url 'bloggers:edit_profile' %}">Edit Profile</a>
+            </li>
+            <li class="nav-item active">
               <a class="nav-link" href="{% url 'logout' %}">Logout</a>
             </li>
           {% else %}
