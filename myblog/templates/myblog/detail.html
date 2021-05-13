@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}{{ post.title }}{% endblock %}
 
@@ -35,12 +36,30 @@
     </div>
     <div class="card mb-3">
         <div class="row no-gutters">
-            <div class="col-md-2">
-                <img src="{{ post.author.profile.profile_pic.url }}" alt="" class='img-fluid img-thumbnail'>
+            <div class="col-md-2 fill">
+                {% if post.author.profile.profile_pic %}
+                    <a href="{% url 'bloggers:profile_page' post.author.profile.id %}"><img src="{{ post.author.profile.profile_pic.url }}" alt="" class='img-thumbnail'></a>
+                {% else %}
+                    <a href="{% url 'bloggers:profile_page' post.author.profile.id %}"><img src="{% static 'myblog/image/default.jpg' %}" alt="" class='img-thumbnail'></a>
+                {% endif %}
             </div>
             <div class="col-md-10">
                 <div class="card-body">
-                    <h5 class="card-title">{{ post.author.first_name|capfirst }} {{ post.author.last_name|capfirst }}</h5>
+                    <h5 class="card-title"><a href="{% url 'bloggers:profile_page' post.author.profile.id %}">{{ post.author.first_name|capfirst }} {{ post.author.last_name|capfirst }}</a></h5>
+                    <p>
+                        {% if post.author.profile.website_url %}
+                            <a href="{{ post.author.profile.website_url }}"><i class="fas fa-globe"></i></a>
+                        {% endif %}
+                        {% if post.author.profile.facebook_url %}
+                            <a href="{{ post.author.profile.facebook_url }}"><i class="fab fa-facebook"></i></a>
+                        {% endif %}
+                        {% if post.author.profile.twitter_url %}
+                            <a href="{{ post.author.profile.twitter_url }}"><i class="fab fa-twitter"></i></a>
+                        {% endif %}
+                        {% if post.author.profile.instagram_url %}
+                            <a href="{{ post.author.profile.instagram_url }}"><i class="fab fa-instagram-square"></i></a>
+                        {% endif %}
+                    </p>
                     <p class="card-text">{{ post.author.profile.bio }}</p>
                 </div>
             </div>
