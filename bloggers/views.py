@@ -1,8 +1,8 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import generic
 from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm, UserChangeForm
 from django.urls import reverse_lazy
-from .forms import PasswordsChangeForm, SignUpForm, EditProfileForm
+from .forms import PasswordsChangeForm, SignUpForm, EditProfileForm, EditProfilePageForm
 from django.contrib.auth.views import PasswordChangeView
 
 from myblog.models import Profile
@@ -38,3 +38,10 @@ class ShowProfilePageView(generic.DetailView):
         
         context['profile'] = page_user
         return context 
+
+
+class EditProfilePageView(generic.UpdateView):
+    model = Profile
+    template_name = "registration/edit_profile_page.html"
+    success_url = reverse_lazy('myblog:home')
+    form_class = EditProfilePageForm

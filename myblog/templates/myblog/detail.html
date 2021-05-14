@@ -38,9 +38,9 @@
         <div class="row no-gutters">
             <div class="col-md-2 fill">
                 {% if post.author.profile.profile_pic %}
-                    <a href="{% url 'bloggers:profile_page' post.author.profile.id %}"><img src="{{ post.author.profile.profile_pic.url }}" alt="" class='img-thumbnail'></a>
+                    <a href="{% url 'bloggers:profile_page' post.author.profile.id %}"><img src="{{ post.author.profile.profile_pic.url }}" alt="" class='img-thumbnail ml-2'></a>
                 {% else %}
-                    <a href="{% url 'bloggers:profile_page' post.author.profile.id %}"><img src="{% static 'myblog/image/default.jpg' %}" alt="" class='img-thumbnail'></a>
+                    <a href="{% url 'bloggers:profile_page' post.author.profile.id %}"><img src="{% static 'myblog/image/default.jpg' %}" alt="" class='img-thumbnail ml-2'></a>
                 {% endif %}
             </div>
             <div class="col-md-10">
